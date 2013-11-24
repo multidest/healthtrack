@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from Health.models import Physician, Patient, Appointment, Patient_has_encounter, Medication, Patient_prescribed_medication, PharmacyOrder, LabOrder
+from Health.models import Patient, Appointment, PatientEncounter, Medication, PatientPrescribedMedication, PharmacyOrder, LabOrder
 
 class PatientAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -13,15 +13,37 @@ class PatientAdmin(admin.ModelAdmin):
         (None,                  {'fields': ['PatientPrimaryPhysician',
                                             'PatientAddress']}),
     ]
-    list_display = ('id', 'PatientName')
+    list_display = ('id', 'PatientName', 'PatientPrimaryPhysician')
     list_filter = ['PatientGender']
-    search_fields = ['PatientName']
+    search_fields = ['PatientName','PatientPhone','PatientPrimaryPhysician']
+
+class AppointmentAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None,                  {'fields': ['AppointmentDate']}),
+        ('Information',         {'fields': ['AppointmentWithPatient',
+                                            'AppointmentWithPhysician']}),
+    ]
+    list_display = ('id','AppointmentDate','AppointmentWithPatient','AppointmentWithPhysician')
+    list_filter = ['AppointmentDate']
+    search_fields = ['AppointmentDate','AppointmentWithPatient','AppointmentWithPhysician']
     
-admin.site.register(Physician)
+class PatientEncounterAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None,                  {'fields':[ 'EncounterDate', 'EncounterPatient']}),
+        ('Encounter',           {'fields':[ 'EncounterSeeingPhysician',
+                                            'EncounterPatientComplaints',
+                                            'EncounterVitalSigns',
+                                            'EncounterDiagnosis',
+                                            'EncounterTreatmentPlan',
+                                            'EncounterReferrals',
+                                            'EncounterNotes']})
+    ]
+    #list_display = ('id')
+    
 admin.site.register(Patient,PatientAdmin)
-admin.site.register(Appointment)
-admin.site.register(Patient_has_encounter)
+admin.site.register(Appointment, AppointmentAdmin)
+admin.site.register(PatientEncounter, PatientEncounterAdmin)
 admin.site.register(Medication)
-admin.site.register(Patient_prescribed_medication)
+admin.site.register(PatientPrescribedMedication)
 admin.site.register(PharmacyOrder)
 admin.site.register(LabOrder)
