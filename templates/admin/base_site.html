@@ -1,10 +1,18 @@
 {% extends "admin/base.html" %}
 {% load i18n %}
 
-{% block title %}{{ title }} | {% trans 'HealthTrack site admin' %}{% endblock %}
-
-{% block branding %}
-<h1 id="site-name">{% trans 'HealthTrack administration' %}</h1>
+{% block title %}
+    {{ title }} | {% trans 'HealthTrack Admin' %}
 {% endblock %}
 
-{% block nav-global %}{% endblock %}
+{% block branding %}
+<h1 id="site-name">{% trans 'HealthTrack Administration' %}</h1>
+{% endblock %}
+
+{% block nav-global %}
+&nbsp;&nbsp;<a href="/admin/Health/appointment/">Appointments</a>
+&nbsp;|&nbsp;&nbsp;<a href="/admin/Health/patientencounter/">Patient encounters</a>
+&nbsp;|&nbsp;&nbsp;<a href="/admin/Health/patient/">Patients</a>
+{% endblock %}
+
+
