@@ -34,16 +34,21 @@ class PatientEncounter(models.Model):
     EncounterDiagnosis = models.CharField('diagnosis', max_length = 100)
     EncounterTreatmentPlan = models.CharField('treatment plan',max_length = 100)
     EncounterReferrals = models.CharField('referrals',max_length = 100)
+    EncounterFollowup = models.CharField('Followup',max_length = 100)
     def __unicode__(self):
         return str(self.id)
 
 class Medication(models.Model):
     MedicationName = models.CharField('medication name',max_length = 100)
+    def __unicode__(self):
+        return self.MedicationName
 
 class PatientPrescribedMedication(models.Model):
-    PatientID = models.ForeignKey(Patient)
-    PatientEncounter_Encounter = models.ForeignKey(PatientEncounter)
-    MedicationID = models.ForeignKey(Medication)
+    PatientID = models.ForeignKey(Patient, verbose_name="patient")
+#    PatientEncounter_Encounter = models.ForeignKey(PatientEncounter, verbose_name="medical encounter")
+    MedicationID = models.ForeignKey(Medication, verbose_name="medication name")
+    def __unicode__(self):
+        return str(self.MedicationID.MedicationName)
 
 class PharmacyOrder(models.Model):
     PatientEncounterID = models.ForeignKey(PatientEncounter)

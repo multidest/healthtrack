@@ -1,0 +1,19 @@
+things to do
+
+
+#add list of medications to patient.
+#add list of appointments to patient.
+
+change permissions to not delete anything
+
+#add lab orders to encounter
+#add pharmacy orders to encounter
+#add recomended_followup to encounter
+
+
+Notes of things I would do differently.
+
+More exactly qualify what some of the fields should be. For example, what is followup?
+
+python manage.py dumpdata > dbtest
+python manage.py loaddata fixtures/inc1.json
